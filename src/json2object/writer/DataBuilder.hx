@@ -337,7 +337,16 @@ class DataBuilder {
 										var defaultMap = $f_default; // store in local variable to avoid multiple evaluation
 										var skip:Bool = true;
 										for (k in $f_a.keys()) {
-											if (!defaultMap.exists(k) || $f_a.get(k) != defaultMap.get(k)) {
+											var currentValue = $f_a.get(k);
+											var deafultValue = defaultMap.get(k);
+
+											var _isEqual = (a:Dynamic, b:Dynamic) -> {
+												if (a == null && b == null) return true;
+												if (a == null || b == null) return false;
+												return a == b;
+											};
+											
+											if (!defaultMap.exists(k) || !_isEqual(currentValue, defaultValue)) {
 												skip = false;
 												break;
 											}
